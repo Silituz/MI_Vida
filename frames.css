@@ -1,0 +1,44 @@
+.visual-frame {
+  background: rgba(18, 8, 24, 0.58);
+}
+
+.hero-art {
+  object-fit: contain;
+  object-position: center;
+}
+
+.question-photo,
+.final-photo {
+  width: min(74%, 270px);
+  aspect-ratio: 4 / 5;
+  max-height: 220px;
+  justify-self: end;
+  object-fit: contain;
+  object-position: center;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 8px;
+  background: rgba(18, 8, 24, 0.5);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.24);
+  cursor: zoom-in;
+}
+
+.final-photo {
+  width: min(82%, 300px);
+  justify-self: center;
+}
+
+.photo-modal img {
+  width: 100%;
+  height: auto;
+  max-height: 76svh;
+  object-fit: contain;
+  object-position: center;
+}
+
+@media (max-height: 700px) {
+  .question-photo,
+  .final-photo {
+    width: min(58%, 220px);
+    max-height: 145px;
+  }
+}
