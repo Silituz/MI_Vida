@@ -113,6 +113,7 @@
             <button type="button" data-photo="assets/photo-09-breakfast.png"><img src="assets/photo-09-breakfast.png" alt=""></button>
             <button type="button" data-photo="assets/photo-10-memory-box.png"><img src="assets/photo-10-memory-box.png" alt=""></button>
           </div>
+          <button class="secondary-action" type="button" id="galleryButton">Ver galeria completa</button>
           <button class="primary-action" type="button" id="restartButton">Otra vez</button>
         </section>
       </section>
@@ -122,6 +123,13 @@
         <button class="modal-close" id="modalClose" type="button" aria-label="Cerrar">×</button>
         <img id="modalImage" src="assets/photo-01-ti-amo.png" alt="">
         <p>Mi Vida preciosa</p>
+      </dialog>
+      <dialog class="gallery-modal" id="galleryModal" aria-label="Galeria completa">
+        <div class="gallery-head">
+          <p>Galeria de Mi Vida preciosa</p>
+          <button class="modal-close inline-close" id="galleryClose" type="button" aria-label="Cerrar">×</button>
+        </div>
+        <div class="gallery-grid" id="galleryGrid"></div>
       </dialog>
       <div class="toast" id="toast" role="status" aria-live="polite"></div>
     </main>
