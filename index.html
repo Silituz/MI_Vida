@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#2a1028">
+    <title>Mi Vida preciosa</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="page-shell">
+      <div class="ambient ambient-one"></div>
+      <div class="ambient ambient-two"></div>
+
+      <section class="love-app" aria-live="polite">
+        <div class="floating-photos" aria-label="Recuerdos flotantes">
+          <button class="memory-heart heart-one" type="button" data-float="assets/photo-03-portrait-soft.png" aria-label="Recuerdo bonito 1">
+            <img src="assets/photo-03-portrait-soft.png" alt="">
+          </button>
+          <button class="memory-heart heart-two" type="button" data-float="assets/photo-04-portrait-smile.png" aria-label="Recuerdo bonito 2">
+            <img src="assets/photo-04-portrait-smile.png" alt="">
+          </button>
+          <button class="memory-heart heart-three" type="button" data-float="assets/photo-08-selfie.png" aria-label="Recuerdo bonito 3">
+            <img src="assets/photo-08-selfie.png" alt="">
+          </button>
+          <button class="memory-heart heart-four" type="button" data-float="assets/photo-11-sleepy.png" aria-label="Recuerdo bonito 4">
+            <img src="assets/photo-11-sleepy.png" alt="">
+          </button>
+        </div>
+
+        <header class="topbar">
+          <button class="icon-button" id="musicButton" type="button" aria-label="Tocar Rosa eterna">
+            <span aria-hidden="true">♪</span>
+          </button>
+          <div class="progress" aria-hidden="true">
+            <span class="progress-dot active"></span>
+            <span class="progress-dot"></span>
+            <span class="progress-dot"></span>
+            <span class="progress-dot"></span>
+            <span class="progress-dot"></span>
+          </div>
+        </header>
+
+        <section class="screen active intro-screen" data-screen="0">
+          <div class="visual-frame">
+            <img src="assets/photo-01-ti-amo.png" alt="" class="hero-art" data-photo="assets/photo-01-ti-amo.png">
+          </div>
+          <p class="eyebrow">Para ti, mi amor</p>
+          <h1>Mi Vida preciosa</h1>
+          <p class="copy">
+            Ti amo. Esta pagina es un pedacito de mi corazon para recordarte lo especial que eres para mi.
+          </p>
+          <button class="primary-action" type="button" data-next>
+            Abrir mi cartita
+          </button>
+        </section>
+
+        <section class="screen question-screen" data-screen="1">
+          <img class="question-photo" src="assets/photo-02-bakery.png" alt="" data-photo="assets/photo-02-bakery.png">
+          <p class="eyebrow">Pregunta 1</p>
+          <h2>Mi Vida preciosa, ¿me regalas una sonrisa hoy?</h2>
+          <p class="copy">Prometo cuidarla como si fuera mi cancion favorita.</p>
+          <div class="answer-grid">
+            <button class="answer yes" type="button" data-next>Si, claro</button>
+            <button class="answer no" type="button" data-no>No</button>
+          </div>
+        </section>
+
+        <section class="screen question-screen" data-screen="2">
+          <img class="question-photo" src="assets/photo-05-cuddle.png" alt="" data-photo="assets/photo-05-cuddle.png">
+          <p class="eyebrow">Pregunta 2</p>
+          <h2>Si te digo que me encantas, ¿me crees?</h2>
+          <p class="copy">Porque mi manera favorita de pensarte siempre termina en algo dulce.</p>
+          <div class="answer-grid">
+            <button class="answer yes" type="button" data-next>Si, te creo</button>
+            <button class="answer no" type="button" data-no>No se</button>
+          </div>
+        </section>
+
+        <section class="screen question-screen" data-screen="3">
+          <img class="question-photo" src="assets/photo-06-sunset.png" alt="" data-photo="assets/photo-06-sunset.png">
+          <p class="eyebrow">Pregunta 3</p>
+          <h2>¿Aceptas que hoy te quiera un poquito mas?</h2>
+          <p class="copy">Sin prisa, bonito, con detalles pequenos y ganas grandes.</p>
+          <div class="answer-grid">
+            <button class="answer yes" type="button" data-next>Acepto</button>
+            <button class="answer no" type="button" data-no>Tal vez no</button>
+          </div>
+        </section>
+
+        <section class="screen final-screen" data-screen="4">
+          <p class="eyebrow">Respuesta final</p>
+          <h2>Sabia que ibas a decir que si</h2>
+          <p class="copy">
+            Gracias por existir, Mi Vida preciosa. Ojala esta pagina te abrace un poquito cada vez que la mires.
+          </p>
+          <div class="memory-strip" aria-label="Mas recuerdos">
+            <button type="button" data-photo="assets/photo-07-weekend.png"><img src="assets/photo-07-weekend.png" alt=""></button>
+            <button type="button" data-photo="assets/photo-09-breakfast.png"><img src="assets/photo-09-breakfast.png" alt=""></button>
+            <button type="button" data-photo="assets/photo-10-memory-box.png"><img src="assets/photo-10-memory-box.png" alt=""></button>
+          </div>
+          <button class="primary-action" type="button" id="restartButton">Otra vez</button>
+        </section>
+      </section>
+
+      <audio id="song" preload="auto" autoplay loop playsinline src="assets/rosa-eterna.mp3"></audio>
+      <dialog class="photo-modal" id="photoModal" aria-label="Recuerdo grande">
+        <button class="modal-close" id="modalClose" type="button" aria-label="Cerrar">×</button>
+        <img id="modalImage" src="assets/photo-01-ti-amo.png" alt="">
+        <p>Mi Vida preciosa</p>
+      </dialog>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
