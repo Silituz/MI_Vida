@@ -35,7 +35,34 @@ const photoSources = [
   "assets/photo-08-selfie.png",
   "assets/photo-09-breakfast.png",
   "assets/photo-10-memory-box.png",
-  "assets/photo-11-sleepy.png"
+  "assets/photo-11-sleepy.png",
+  "assets/rosa-eterna.png",
+  "assets/photo-12-poster.png",
+  "assets/photo-13-sleep.png",
+  "assets/photo-14-disney.png",
+  "assets/photo-15-ancient1.png",
+  "assets/photo-16-ancient2.png",
+  "assets/photo-17-cute1.png",
+  "assets/photo-18-cute2.png",
+  "assets/photo-19-bed.png",
+  "assets/photo-21-cute4.png",
+  "assets/photo-22-bunny.png", 
+  "assets/photo-23-cute5.png", 
+  "assets/photo-24-flower.png", 
+  "assets/photo-25-anime.png", 
+  "assets/photo-26-cute6.png", 
+  "assets/photo-27-anime2.png", 
+  "assets/photo-28-anime3.png", 
+  "assets/photo-29-anime4.png", 
+  "assets/photo-30-disney2.png", 
+  "assets/photo-31-anime5.png", 
+  "assets/photo-32-anime6.png", 
+  "assets/photo-33-cute7.png", 
+  "assets/photo-34-cute8.png", 
+  "assets/photo-35-cute9.png", 
+  "assets/photo-36-cute10.png", 
+  "assets/photo-37-rosa_eterna2.png" 
+   
 ];
 
 let currentScreen = 0;
