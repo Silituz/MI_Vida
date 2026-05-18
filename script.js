@@ -10,6 +10,10 @@ const restartButton = document.querySelector("#restartButton");
 const modal = document.querySelector("#photoModal");
 const modalImage = document.querySelector("#modalImage");
 const modalClose = document.querySelector("#modalClose");
+const galleryButton = document.querySelector("#galleryButton");
+const galleryModal = document.querySelector("#galleryModal");
+const galleryGrid = document.querySelector("#galleryGrid");
+const galleryClose = document.querySelector("#galleryClose");
 
 const noReplies = [
   "Si, pero con drama",
@@ -38,6 +42,7 @@ let currentScreen = 0;
 let toastTimer;
 let photoHeartClicks = 0;
 let nextFloatingPhoto = 0;
+let galleryBuilt = false;
 
 function setScreen(nextScreen) {
   currentScreen = Math.max(0, Math.min(nextScreen, screens.length - 1));
@@ -128,6 +133,36 @@ function openPhoto(src) {
   }
 }
 
+function buildGallery() {
+  if (galleryBuilt) {
+    return;
+  }
+
+  photoSources.forEach((src, index) => {
+    const button = document.createElement("button");
+    const image = document.createElement("img");
+
+    button.type = "button";
+    button.dataset.photo = src;
+    button.setAttribute("aria-label", `Recuerdo ${index + 1}`);
+    image.src = src;
+    image.alt = "";
+
+    button.append(image);
+    galleryGrid.append(button);
+  });
+
+  galleryBuilt = true;
+}
+
+function openGallery() {
+  buildGallery();
+
+  if (typeof galleryModal.showModal === "function") {
+    galleryModal.showModal();
+  }
+}
+
 function growFloatingPhoto(button) {
   photoHeartClicks += 1;
   button.classList.add("is-big");
@@ -175,6 +210,9 @@ document.addEventListener("click", (event) => {
 
   if (photoButton) {
     const src = photoButton.dataset.photo || photoButton.getAttribute("src");
+    if (galleryModal.open) {
+      galleryModal.close();
+    }
     openPhoto(src);
     return;
   }
@@ -225,14 +263,29 @@ musicButton.addEventListener("click", async (event) => {
 
 modalClose.addEventListener("click", () => modal.close());
 
+galleryButton.addEventListener("click", (event) => {
+  event.stopPropagation();
+  playSong({ quiet: true });
+  openGallery();
+});
+
+galleryClose.addEventListener("click", () => galleryModal.close());
+
 modal.addEventListener("click", (event) => {
   if (event.target === modal) {
     modal.close();
   }
 });
 
+galleryModal.addEventListener("click", (event) => {
+  if (event.target === galleryModal) {
+    galleryModal.close();
+  }
+});
+
 window.addEventListener("DOMContentLoaded", () => {
   playSong({ quiet: true });
+  buildGallery();
 });
 
 window.addEventListener("pageshow", () => {
