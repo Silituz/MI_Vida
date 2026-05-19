@@ -317,7 +317,7 @@ h2 {
   border-radius: 8px;
   font-weight: 850;
   cursor: pointer;
-  transition: transform 180ms ease, background 180ms ease, color 180ms ease, opacity 180ms ease;
+  transition: transform 180ms ease, background 180ms ease, color 180ms ease, opacity 180ms ease, box-shadow 180ms ease;
   touch-action: manipulation;
 }
 
@@ -349,6 +349,10 @@ h2 {
 }
 
 .answer.no {
+  --no-x: 0px;
+  --no-y: 0px;
+  --no-tilt: 0deg;
+  position: relative;
   border: 1px solid rgba(255, 255, 255, 0.32);
   background: rgba(255, 255, 255, 0.09);
 }
@@ -358,13 +362,39 @@ h2 {
   background: linear-gradient(135deg, var(--mint), #fff4c8);
 }
 
+.answer.no.is-playful {
+  transform: translate(var(--no-x), var(--no-y)) rotate(var(--no-tilt));
+}
+
+.answer.no.is-glow {
+  border-color: rgba(158, 231, 209, 0.78);
+  box-shadow: 0 0 0 3px rgba(158, 231, 209, 0.16), 0 14px 30px rgba(158, 231, 209, 0.2);
+}
+
+.answer.no.is-shy {
+  opacity: 0.86;
+  transform: translate(var(--no-x), var(--no-y)) rotate(var(--no-tilt)) scale(0.94);
+}
+
+.answer.no.is-kiss::after {
+  position: absolute;
+  top: -14px;
+  right: 16px;
+  content: "muah";
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  animation: kissNote 760ms ease both;
+}
+
 .answer.no.is-floating {
-  transform: translateY(-10px) rotate(-2deg);
+  transform: translate(var(--no-x), calc(var(--no-y) - 10px)) rotate(var(--no-tilt));
 }
 
 .answer.no.is-tiny {
   opacity: 0.82;
-  transform: scale(0.92);
+  transform: translate(var(--no-x), var(--no-y)) rotate(var(--no-tilt)) scale(0.92);
 }
 
 .answer:active,
@@ -540,6 +570,18 @@ h2 {
 
   to {
     translate: 10px -18px;
+  }
+}
+
+@keyframes kissNote {
+  from {
+    opacity: 0;
+    transform: translateY(8px) rotate(-8deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(-12px) rotate(7deg);
   }
 }
 
