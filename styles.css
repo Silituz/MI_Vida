@@ -410,6 +410,84 @@ h2 {
     radial-gradient(circle at 50% 18%, rgba(255, 210, 125, 0.34), transparent 17rem);
 }
 
+.reason-sky {
+  position: relative;
+  min-height: 112px;
+  padding: 14px 14px 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 18% 24%, rgba(255, 210, 125, 0.18), transparent 6rem),
+    radial-gradient(circle at 84% 10%, rgba(158, 231, 209, 0.14), transparent 7rem),
+    rgba(255, 255, 255, 0.08);
+}
+
+.reason-star {
+  position: absolute;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: var(--gold);
+  background: transparent;
+  filter: drop-shadow(0 0 8px rgba(255, 210, 125, 0.72));
+  font-size: 1.25rem;
+  cursor: pointer;
+  animation: starTwinkle 2.8s ease-in-out infinite;
+}
+
+.reason-star.is-found {
+  color: #70fff1;
+  filter: drop-shadow(0 0 10px rgba(112, 255, 241, 0.86));
+}
+
+.star-a {
+  top: 10px;
+  left: 18px;
+}
+
+.star-b {
+  top: 16px;
+  right: 36px;
+  animation-delay: -0.8s;
+}
+
+.star-c {
+  top: 50px;
+  left: 42%;
+  animation-delay: -1.5s;
+}
+
+.star-d {
+  bottom: 28px;
+  left: 70px;
+  animation-delay: -2s;
+}
+
+.star-e {
+  right: 20px;
+  bottom: 34px;
+  animation-delay: -2.4s;
+}
+
+.reason-text {
+  position: relative;
+  z-index: 1;
+  min-height: 42px;
+  margin: 46px 0 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: var(--ink);
+  background: rgba(42, 16, 40, 0.54);
+  font-size: 0.92rem;
+  font-weight: 750;
+  line-height: 1.35;
+  text-align: center;
+}
+
 .memory-strip {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -585,6 +663,18 @@ h2 {
   }
 }
 
+@keyframes starTwinkle {
+  0%, 100% {
+    opacity: 0.74;
+    transform: scale(1) rotate(0deg);
+  }
+
+  45% {
+    opacity: 1;
+    transform: scale(1.22) rotate(8deg);
+  }
+}
+
 @keyframes burst {
   from {
     opacity: 1;
@@ -652,6 +742,16 @@ h2 {
   .screen {
     gap: 14px;
     padding-bottom: 18px;
+  }
+
+  .reason-sky {
+    min-height: 98px;
+    padding: 10px;
+  }
+
+  .reason-text {
+    margin-top: 38px;
+    font-size: 0.84rem;
   }
 }
 
