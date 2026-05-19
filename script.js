@@ -14,6 +14,8 @@ const galleryButton = document.querySelector("#galleryButton");
 const galleryModal = document.querySelector("#galleryModal");
 const galleryGrid = document.querySelector("#galleryGrid");
 const galleryClose = document.querySelector("#galleryClose");
+const secretModal = document.querySelector("#secretModal");
+const secretClose = document.querySelector("#secretClose");
 
 const noReplies = [
   "Si, pero con drama",
@@ -71,6 +73,8 @@ let nextFloatingPhoto = 0;
 let galleryBuilt = false;
 let galleryScrollTop = 0;
 let photoOpenedFromGallery = false;
+let secretClicks = Number(sessionStorage.getItem("secretClicks") || "0");
+let secretUnlocked = sessionStorage.getItem("secretUnlocked") === "true";
 
 function setScreen(nextScreen) {
   currentScreen = Math.max(0, Math.min(nextScreen, screens.length - 1));
@@ -137,6 +141,33 @@ function createBurst(origin) {
 
     document.body.append(heart);
     setTimeout(() => heart.remove(), 920);
+  }
+}
+
+function unlockSecret() {
+  secretUnlocked = true;
+  sessionStorage.setItem("secretUnlocked", "true");
+  createBurst(document.querySelector(".love-app"));
+
+  if (secretModal && typeof secretModal.showModal === "function") {
+    secretModal.showModal();
+  }
+}
+
+function countSecretMoment() {
+  if (secretUnlocked) {
+    return;
+  }
+
+  secretClicks += 1;
+  sessionStorage.setItem("secretClicks", String(secretClicks));
+
+  if (secretClicks === 7) {
+    showToast("Ya casi encuentras algo secreto...");
+  }
+
+  if (secretClicks >= 10) {
+    unlockSecret();
   }
 }
 
@@ -250,11 +281,13 @@ document.addEventListener("click", (event) => {
   playSong({ quiet: true });
 
   if (floatingPhoto) {
+    countSecretMoment();
     growFloatingPhoto(floatingPhoto);
     return;
   }
 
   if (photoButton) {
+    countSecretMoment();
     const src = photoButton.dataset.photo || photoButton.getAttribute("src");
 
     if (galleryModal.open && galleryModal.contains(photoButton)) {
@@ -269,11 +302,13 @@ document.addEventListener("click", (event) => {
   }
 
   if (noButton) {
+    countSecretMoment();
     sweetenNo(noButton);
     return;
   }
 
   if (nextButton) {
+    countSecretMoment();
     createBurst(nextButton);
     setScreen(currentScreen + 1);
   }
@@ -316,11 +351,16 @@ modalClose.addEventListener("click", closePhoto);
 
 galleryButton.addEventListener("click", (event) => {
   event.stopPropagation();
+  countSecretMoment();
   playSong({ quiet: true });
   openGallery();
 });
 
 galleryClose.addEventListener("click", () => galleryModal.close());
+
+if (secretClose) {
+  secretClose.addEventListener("click", () => secretModal.close());
+}
 
 modal.addEventListener("click", (event) => {
   if (event.target === modal) {
@@ -333,6 +373,14 @@ galleryModal.addEventListener("click", (event) => {
     galleryModal.close();
   }
 });
+
+if (secretModal) {
+  secretModal.addEventListener("click", (event) => {
+    if (event.target === secretModal) {
+      secretModal.close();
+    }
+  });
+}
 
 window.addEventListener("DOMContentLoaded", () => {
   playSong({ quiet: true });
