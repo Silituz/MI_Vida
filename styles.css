@@ -412,8 +412,8 @@ h2 {
 
 .reason-sky {
   position: relative;
-  min-height: 112px;
-  padding: 14px 14px 12px;
+  min-height: 92px;
+  padding: 12px 14px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
@@ -456,32 +456,32 @@ h2 {
 }
 
 .star-c {
-  top: 50px;
+  top: 48px;
   left: 42%;
   animation-delay: -1.5s;
 }
 
 .star-d {
-  bottom: 28px;
+  bottom: 12px;
   left: 70px;
   animation-delay: -2s;
 }
 
 .star-e {
   right: 20px;
-  bottom: 34px;
+  bottom: 14px;
   animation-delay: -2.4s;
 }
 
 .reason-text {
-  position: relative;
-  z-index: 1;
-  min-height: 42px;
-  margin: 46px 0 0;
+  min-height: 54px;
+  margin: -8px 0 0;
   padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 8px;
   color: var(--ink);
-  background: rgba(42, 16, 40, 0.54);
+  background: rgba(42, 16, 40, 0.68);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
   font-size: 0.92rem;
   font-weight: 750;
   line-height: 1.35;
@@ -740,18 +740,31 @@ h2 {
   }
 
   .screen {
-    gap: 14px;
-    padding-bottom: 18px;
+    gap: 12px;
+    padding-bottom: 16px;
   }
 
   .reason-sky {
-    min-height: 98px;
-    padding: 10px;
+    min-height: 76px;
+    padding: 9px 10px;
   }
 
   .reason-text {
-    margin-top: 38px;
-    font-size: 0.84rem;
+    min-height: 48px;
+    margin-top: -6px;
+    font-size: 0.82rem;
+  }
+
+  .star-c {
+    top: 34px;
+  }
+
+  .star-d {
+    bottom: 8px;
+  }
+
+  .star-e {
+    bottom: 10px;
   }
 }
 
