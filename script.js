@@ -16,6 +16,7 @@ const galleryGrid = document.querySelector("#galleryGrid");
 const galleryClose = document.querySelector("#galleryClose");
 const secretModal = document.querySelector("#secretModal");
 const secretClose = document.querySelector("#secretClose");
+const reasonText = document.querySelector("#reasonText");
 
 const noReplies = [
   "No puedo decir no a ti",
@@ -207,6 +208,17 @@ function sweetenNo(button) {
   button.removeAttribute("data-no");
 }
 
+function showReason(button) {
+  if (!reasonText) {
+    return;
+  }
+
+  reasonText.textContent = button.dataset.reason;
+  button.classList.add("is-found");
+  createBurst(button);
+  showToast("Una razon mas para amarte.");
+}
+
 function openPhoto(src, { fromGallery = false } = {}) {
   photoOpenedFromGallery = fromGallery;
   modalImage.src = src;
@@ -300,12 +312,19 @@ document.addEventListener("click", (event) => {
   const photoButton = event.target.closest("[data-photo]");
   const nextButton = event.target.closest("[data-next]");
   const noButton = event.target.closest("[data-no]");
+  const reasonButton = event.target.closest("[data-reason]");
 
   playSong({ quiet: true });
 
   if (floatingPhoto) {
     countSecretMoment();
     growFloatingPhoto(floatingPhoto);
+    return;
+  }
+
+  if (reasonButton) {
+    countSecretMoment();
+    showReason(reasonButton);
     return;
   }
 
@@ -347,6 +366,12 @@ restartButton.addEventListener("click", () => {
     delete button.dataset.next;
     delete button.dataset.noCount;
   });
+
+  document.querySelectorAll(".reason-star").forEach((button) => button.classList.remove("is-found"));
+
+  if (reasonText) {
+    reasonText.textContent = "Toca una estrella para descubrir una razon.";
+  }
 
   const labels = ["No", "No se", "Tal vez no"];
   document.querySelectorAll(".answer.no").forEach((button, index) => {
