@@ -21,6 +21,7 @@
     <title>Mi Vida preciosa</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="frames.css">
+    <link rel="stylesheet" href="secret.css">
   </head>
   <body>
     <main class="page-shell">
@@ -132,6 +133,15 @@
           <button class="modal-close inline-close" id="galleryClose" type="button" aria-label="Cerrar">×</button>
         </div>
         <div class="gallery-grid" id="galleryGrid"></div>
+      </dialog>
+      <dialog class="secret-modal" id="secretModal" aria-label="Mensaje secreto">
+        <button class="modal-close" id="secretClose" type="button" aria-label="Cerrar">×</button>
+        <div class="secret-card">
+          <span class="secret-heart" aria-hidden="true">♥</span>
+          <p class="eyebrow">Mensaje secreto</p>
+          <h2>Mi Vida preciosa</h2>
+          <p>Si llegaste hasta aqui, es porque encontraste diez pedacitos de mi amor. Ti amo mas de lo que esta pagina puede decir.</p>
+        </div>
       </dialog>
       <div class="toast" id="toast" role="status" aria-live="polite"></div>
     </main>
