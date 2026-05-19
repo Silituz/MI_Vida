@@ -18,12 +18,14 @@ const secretModal = document.querySelector("#secretModal");
 const secretClose = document.querySelector("#secretClose");
 
 const noReplies = [
-  "Si, pero con drama",
-  "Bueno... si",
-  "Si, me dio pena",
-  "Si, obvio",
-  "Si, porque eres lindo",
-  "Si, siguiente pregunta"
+  "No puedo decir no a ti",
+  "Espera... casi digo si",
+  "Me estoy haciendo la dificil",
+  "No, pero con carino",
+  "Tal vez si, mi amor",
+  "Uy... se movio solito",
+  "Ok, me ganaste",
+  "Si, pero con drama"
 ];
 
 const photoSources = [
@@ -172,13 +174,34 @@ function countSecretMoment() {
 }
 
 function sweetenNo(button) {
+  const noCount = Number(button.dataset.noCount || "0") + 1;
   const nextText = noReplies[Math.floor(Math.random() * noReplies.length)];
+  const x = Math.round((Math.random() * 44) - 22);
+  const y = Math.round((Math.random() * 18) - 9);
+  const tilt = Math.round((Math.random() * 10) - 5);
+  const moods = ["is-playful", "is-glow", "is-shy", "is-kiss", "is-floating", "is-tiny"];
+  const mood = moods[Math.floor(Math.random() * moods.length)];
+
+  button.dataset.noCount = String(noCount);
   button.textContent = nextText;
-  button.classList.add("is-cute");
-  button.classList.toggle("is-floating");
-  button.classList.toggle("is-tiny");
+  button.classList.remove("is-playful", "is-glow", "is-shy", "is-kiss", "is-floating", "is-tiny");
+  button.classList.add("is-cute", mood);
+  button.style.setProperty("--no-x", `${x}px`);
+  button.style.setProperty("--no-y", `${y}px`);
+  button.style.setProperty("--no-tilt", `${tilt}deg`);
   createBurst(button);
-  showToast("El universo tradujo esa respuesta a un si bonito.");
+
+  if (noCount < 3) {
+    showToast(noCount === 1 ? "Ese no se puso nervioso." : "Creo que ese no ya quiere ser si.");
+    return;
+  }
+
+  button.textContent = "Si, ya no puedo resistirme";
+  button.classList.add("is-glow");
+  button.style.setProperty("--no-x", "0px");
+  button.style.setProperty("--no-y", "0px");
+  button.style.setProperty("--no-tilt", "0deg");
+  showToast("Listo. El no se rindio al amor.");
 
   button.dataset.next = "";
   button.removeAttribute("data-no");
@@ -315,10 +338,14 @@ document.addEventListener("click", (event) => {
 });
 
 restartButton.addEventListener("click", () => {
-  document.querySelectorAll(".answer.no").forEach((button) => {
-    button.classList.remove("is-cute", "is-floating", "is-tiny");
+  document.querySelectorAll(".answer.no, .answer[data-no-count]").forEach((button) => {
+    button.classList.remove("is-cute", "is-playful", "is-glow", "is-shy", "is-kiss", "is-floating", "is-tiny");
+    button.style.removeProperty("--no-x");
+    button.style.removeProperty("--no-y");
+    button.style.removeProperty("--no-tilt");
     button.dataset.no = "";
     delete button.dataset.next;
+    delete button.dataset.noCount;
   });
 
   const labels = ["No", "No se", "Tal vez no"];
