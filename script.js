@@ -46,23 +46,22 @@ const photoSources = [
   "assets/photo-18-cute2.png",
   "assets/photo-19-bed.png",
   "assets/photo-21-cute4.png",
-  "assets/photo-22-bunny.png", 
-  "assets/photo-23-cute5.png", 
-  "assets/photo-24-flower.png", 
-  "assets/photo-25-anime.png", 
-  "assets/photo-26-cute6.png", 
-  "assets/photo-27-anime2.png", 
-  "assets/photo-28-anime3.png", 
-  "assets/photo-29-anime4.png", 
-  "assets/photo-30-disney2.png", 
-  "assets/photo-31-anime5.png", 
-  "assets/photo-32-anime6.png", 
-  "assets/photo-33-cute7.png", 
-  "assets/photo-34-cute8.png", 
-  "assets/photo-35-cute9.png", 
-  "assets/photo-36-cute10.png", 
-  "assets/photo-37-rosa_eterna2.png" 
-   
+  "assets/photo-22-bunny.png",
+  "assets/photo-23-cute5.png",
+  "assets/photo-24-flower.png",
+  "assets/photo-25-anime.png",
+  "assets/photo-26-cute6.png",
+  "assets/photo-27-anime2.png",
+  "assets/photo-28-anime3.png",
+  "assets/photo-29-anime4.png",
+  "assets/photo-30-disney2.png",
+  "assets/photo-31-anime5.png",
+  "assets/photo-32-anime6.png",
+  "assets/photo-33-cute7.png",
+  "assets/photo-34-cute8.png",
+  "assets/photo-35-cute9.png",
+  "assets/photo-36-cute10.png",
+  "assets/photo-37-rosa_eterna2.png"
 ];
 
 let currentScreen = 0;
@@ -70,6 +69,8 @@ let toastTimer;
 let photoHeartClicks = 0;
 let nextFloatingPhoto = 0;
 let galleryBuilt = false;
+let galleryScrollTop = 0;
+let photoOpenedFromGallery = false;
 
 function setScreen(nextScreen) {
   currentScreen = Math.max(0, Math.min(nextScreen, screens.length - 1));
@@ -152,11 +153,21 @@ function sweetenNo(button) {
   button.removeAttribute("data-no");
 }
 
-function openPhoto(src) {
+function openPhoto(src, { fromGallery = false } = {}) {
+  photoOpenedFromGallery = fromGallery;
   modalImage.src = src;
 
   if (typeof modal.showModal === "function") {
     modal.showModal();
+  }
+}
+
+function closePhoto() {
+  modal.close();
+
+  if (photoOpenedFromGallery) {
+    photoOpenedFromGallery = false;
+    openGallery({ restoreScroll: true });
   }
 }
 
@@ -174,6 +185,8 @@ function buildGallery() {
     button.setAttribute("aria-label", `Recuerdo ${index + 1}`);
     image.src = src;
     image.alt = "";
+    image.loading = "lazy";
+    image.decoding = "async";
 
     button.append(image);
     galleryGrid.append(button);
@@ -182,11 +195,17 @@ function buildGallery() {
   galleryBuilt = true;
 }
 
-function openGallery() {
+function openGallery({ restoreScroll = false } = {}) {
   buildGallery();
 
-  if (typeof galleryModal.showModal === "function") {
+  if (typeof galleryModal.showModal === "function" && !galleryModal.open) {
     galleryModal.showModal();
+  }
+
+  if (restoreScroll) {
+    requestAnimationFrame(() => {
+      galleryGrid.scrollTop = galleryScrollTop;
+    });
   }
 }
 
@@ -237,9 +256,14 @@ document.addEventListener("click", (event) => {
 
   if (photoButton) {
     const src = photoButton.dataset.photo || photoButton.getAttribute("src");
-    if (galleryModal.open) {
+
+    if (galleryModal.open && galleryModal.contains(photoButton)) {
+      galleryScrollTop = galleryGrid.scrollTop;
       galleryModal.close();
+      openPhoto(src, { fromGallery: true });
+      return;
     }
+
     openPhoto(src);
     return;
   }
@@ -288,7 +312,7 @@ musicButton.addEventListener("click", async (event) => {
   }
 });
 
-modalClose.addEventListener("click", () => modal.close());
+modalClose.addEventListener("click", closePhoto);
 
 galleryButton.addEventListener("click", (event) => {
   event.stopPropagation();
@@ -300,7 +324,7 @@ galleryClose.addEventListener("click", () => galleryModal.close());
 
 modal.addEventListener("click", (event) => {
   if (event.target === modal) {
-    modal.close();
+    closePhoto();
   }
 });
 
@@ -312,7 +336,6 @@ galleryModal.addEventListener("click", (event) => {
 
 window.addEventListener("DOMContentLoaded", () => {
   playSong({ quiet: true });
-  buildGallery();
 });
 
 window.addEventListener("pageshow", () => {
